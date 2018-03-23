@@ -1,0 +1,43 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Commander",
+        "repositoryURL": "https://github.com/kylef/Commander",
+        "state": {
+          "branch": null,
+          "revision": "e5b50ad7b2e91eeb828393e89b03577b16be7db9",
+          "version": "0.8.0"
+        }
+      },
+      {
+        "package": "JSBridge",
+        "repositoryURL": "https://github.com/LinusU/JSBridge",
+        "state": {
+          "branch": null,
+          "revision": "ad2055a2483e6725763d18a7e4838a5e7ec5eeb6",
+          "version": "1.0.0-alpha.7"
+        }
+      },
+      {
+        "package": "PromiseKit",
+        "repositoryURL": "https://github.com/mxcl/PromiseKit",
+        "state": {
+          "branch": null,
+          "revision": "62c61dd712da2f29a339cc2b46bb28a6a90086c6",
+          "version": "6.2.2"
+        }
+      },
+      {
+        "package": "Spectre",
+        "repositoryURL": "https://github.com/kylef/Spectre.git",
+        "state": {
+          "branch": null,
+          "revision": "e34d5687e1e9d865e3527dd58bc2f7464ef6d936",
+          "version": "0.8.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
