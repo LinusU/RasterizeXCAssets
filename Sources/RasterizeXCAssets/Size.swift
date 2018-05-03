@@ -27,6 +27,18 @@ struct Size {
     }
 }
 
+extension Size: Equatable {
+    static func ==(lhs: Size, rhs: Size) -> Bool {
+        return lhs.width == rhs.width && lhs.height == rhs.height
+    }
+}
+
+extension Size: Hashable {
+    var hashValue: Int {
+        return width.hashValue ^ height.hashValue &* 16777619
+    }
+}
+
 extension Size: CustomStringConvertible {
     var description: String { return "\(self.width)x\(self.height)" }
 }

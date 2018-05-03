@@ -38,7 +38,7 @@ enum UserError: Error, CustomStringConvertible {
     }
 }
 
-func main(source: String, output: String, size: Size) throws -> Promise<Void> {
+func main(source: String, output: String, sizes: [Size]) throws -> Promise<Void> {
     guard #available(macOS 10.13, *) else {
         throw UserError.unsupportedOS
     }
@@ -56,7 +56,7 @@ func main(source: String, output: String, size: Size) throws -> Promise<Void> {
 
     switch outputURL.pathExtension {
         case "appiconset": return appiconset(source: sourceString, outputURL: outputURL)
-        case "imageset": return imageset(source: sourceString, outputURL: outputURL, size: size)
+        case "imageset": return imageset(source: sourceString, outputURL: outputURL, sizes: sizes)
         default: throw UserError.unexpectedContainerType(xcassetsURL.pathExtension)
     }
 }
@@ -64,6 +64,6 @@ func main(source: String, output: String, size: Size) throws -> Promise<Void> {
 command(
     Argument<String>("source", description: "Source SVG file"),
     Argument<String>("output", description: "Output path for resulting asset"),
-    Option<Size>("size", default: Size(width: 64, height: 64), description: "Size (in points) of the output asset (e.g. 120x120)"),
+    VariadicOption<Size>("size", default: [Size(width: 64, height: 64)], description: "Size (in points) of the output asset (e.g. 120x120)"),
     main
 ).run()

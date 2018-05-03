@@ -3,29 +3,42 @@ import Foundation
 import PromiseKit
 
 @available(macOS 10.13, *)
-func imageset(source: String, outputURL: URL, size: Size) -> Promise<Void> {
+func imageset(source: String, outputURL: URL, sizes: [Size]) -> Promise<Void> {
     let fs = FileManager.default
     let worker = Rasterizer()
 
-    let sizes = [size, size.scaled(2), size.scaled(3)]
-    let images = sizes.map { worker.rasterize(source: source, width: $0.width, height: $0.height) }
+    var rasterizedSizes = Set<Size>()
+
+    for size in sizes {
+        rasterizedSizes.insert(size)
+        rasterizedSizes.insert(size.scaled(2))
+        rasterizedSizes.insert(size.scaled(3))
+    }
+
+    let images = rasterizedSizes.map { size in
+        worker.rasterize(source: source, width: size.width, height: size.height).map { image in (size, image) }
+    }
 
     return firstly {
         when(fulfilled: images)
     }.done { images in
         try fs.createDirectory(at: outputURL, withIntermediateDirectories: true)
 
-        try images[0].write(to: outputURL.appendingPathComponent("Image@1x.png"))
-        try images[1].write(to: outputURL.appendingPathComponent("Image@2x.png"))
-        try images[2].write(to: outputURL.appendingPathComponent("Image@3x.png"))
+        for (size, image) in images {
+            try image.write(to: outputURL.appendingPathComponent("Image-\(size).png"))
+        }
+
+        var contentImages = Array<Contents.Image>()
+
+        for size in sizes {
+            for scale in [UInt]([1, 2, 3]) {
+                contentImages.append(.init(filename: "Image-\(size.scaled(scale)).png", idiom: "universal", size: size.description, scale: "\(scale)x"))
+            }
+        }
 
         let contents = Contents(
             info: Contents.Info(author: "xcode", version: 1),
-            images: [
-                Contents.Image(filename: "Image@1x.png", idiom: "universal", size: size.description, scale: "1x"),
-                Contents.Image(filename: "Image@2x.png", idiom: "universal", size: size.description, scale: "2x"),
-                Contents.Image(filename: "Image@3x.png", idiom: "universal", size: size.description, scale: "3x"),
-            ]
+            images: contentImages
         )
 
         let contentsURL = outputURL.appendingPathComponent("Contents.json")
