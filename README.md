@@ -27,3 +27,10 @@ rasterizexcassets greeting.svg Sources/Assets.xcassets/Greeting.imageset --size 
 ```
 
 The command will load the svg file `logo.svg`, and then rasterize it to the size specified at 1x, 2x and 3x. It will also create the neccesary `Contents.json` file, and create `Assets.xcassets` if it doesn't exist.
+
+## Related tools
+
+- [jkmathew/Assetizer](https://github.com/jkmathew/Assetizer) - Creates Assets from raster images
+- **LinusU/RasterizeXCAssets** - Create AppIcons & Assets from SVGs
+- [num42/icon-resizer-swift](https://github.com/num42/icon-resizer-swift) - Create AppIcons from raster images
+
