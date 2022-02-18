@@ -57,7 +57,7 @@ func main(source: String, output: String, size: Size) throws -> Promise<Void> {
     switch outputURL.pathExtension {
         case "appiconset": return appiconset(source: sourceString, outputURL: outputURL)
         case "imageset": return imageset(source: sourceString, outputURL: outputURL, size: size)
-        default: throw UserError.unexpectedContainerType(xcassetsURL.pathExtension)
+        default: throw UserError.unexpectedAssetType(outputURL.pathExtension)
     }
 }
 
