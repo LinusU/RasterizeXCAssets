@@ -1,4 +1,4 @@
-// swift-tools-version:4.0
+// swift-tools-version:5.0
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -10,7 +10,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/kylef/Commander", from: "0.8.0"),
-        .package(url: "https://github.com/LinusU/JSBridge", from: "1.0.0-alpha.7"),
+        .package(url: "https://github.com/LinusU/JSBridge", from: "1.0.0-alpha.16"),
     ],
     targets: [
         .target(name: "RasterizeXCAssets", dependencies: ["Commander", "JSBridge"]),
